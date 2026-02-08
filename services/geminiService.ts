@@ -2,9 +2,13 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AIStyleSuggestion } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+// Fallback to avoid crashes if process.env.API_KEY is missing during build or static hosting
+const API_KEY = typeof process.env !== 'undefined' ? process.env.API_KEY : '';
+const ai = new GoogleGenAI({ apiKey: API_KEY || '' });
 
 export const getAIStyleSuggestions = async (brandDescription: string): Promise<AIStyleSuggestion> => {
+  if (!API_KEY) throw new Error("API Key is missing. Please configure your environment.");
+  
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: `Suggest a QR code style (colors and shapes) for a brand with this description: "${brandDescription}". 
@@ -32,6 +36,8 @@ export const getAIStyleSuggestions = async (brandDescription: string): Promise<A
 };
 
 export const generateQRBackground = async (prompt: string): Promise<string> => {
+  if (!API_KEY) throw new Error("API Key is missing.");
+
   const response = await ai.models.generateContent({
     model: 'gemini-2.5-flash-image',
     contents: {
@@ -54,6 +60,8 @@ export const generateQRBackground = async (prompt: string): Promise<string> => {
 };
 
 export const refineQRContent = async (userInput: string): Promise<string> => {
+  if (!API_KEY) throw new Error("API Key is missing.");
+
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: `The user wants to create a QR code. Their raw input is: "${userInput}". 
