@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import QRCodePreview from './components/QRCodePreview';
-import CustomizationPanel from './components/CustomizationPanel';
-import { QRConfig } from './types';
+import QRCodePreview from './components/QRCodePreview.tsx';
+import CustomizationPanel from './components/CustomizationPanel.tsx';
+import { QRConfig } from './types.ts';
 import { QrCode, ShieldCheck, Zap, Download } from 'lucide-react';
 
 const INITIAL_CONFIG: QRConfig = {
@@ -24,7 +24,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 pb-20">
-      {/* Header */}
       <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -33,17 +32,17 @@ const App: React.FC = () => {
             </div>
             <div>
               <h1 className="text-xl font-extrabold font-outfit tracking-tight text-white uppercase">X9M8 STUDIO</h1>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Professional QR Engine</p>
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Standalone Engine</p>
             </div>
           </div>
           <div className="hidden md:flex items-center gap-6">
             <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
               <ShieldCheck size={14} className="text-emerald-500" />
-              Privacy First
+              Private & Local
             </div>
             <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
               <Zap size={14} className="text-amber-500" />
-              Instant Gen
+              Instant Render
             </div>
           </div>
         </div>
@@ -52,34 +51,32 @@ const App: React.FC = () => {
       <main className="max-w-5xl mx-auto px-6 pt-12">
         <div className="text-center mb-12 space-y-4">
           <h2 className="text-4xl md:text-5xl font-black font-outfit text-white tracking-tight">
-            Create Professional <span className="text-indigo-500">QR Codes</span>
+            Professional <span className="text-indigo-500">QR Generation</span>
           </h2>
           <p className="text-slate-400 max-w-xl mx-auto text-sm md:text-base">
-            Customize every detail of your QR code. Perfect for business cards, marketing materials, and digital links.
+            High-performance QR engine optimized for web and print. No tracking, no data collection.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Main Content - Editor */}
-          <section className="lg:col-span-7 space-y-8">
-            <div className="bg-slate-900 rounded-[2rem] p-2 shadow-2xl border border-slate-800">
+          <section className="lg:col-span-7">
+            <div className="bg-slate-900 rounded-[2.5rem] p-1 shadow-2xl border border-slate-800">
                <CustomizationPanel config={config} setConfig={setConfig} />
             </div>
           </section>
 
-          {/* Right Side - Preview */}
           <aside className="lg:col-span-5 lg:sticky lg:top-28">
             <QRCodePreview config={config} />
             
-            <div className="mt-8 grid grid-cols-1 gap-4">
-               <div className="p-5 bg-slate-900/50 rounded-2xl border border-slate-800 flex items-start gap-4">
-                 <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-400">
-                   <Download size={20} />
+            <div className="mt-8">
+               <div className="p-6 bg-slate-900/50 rounded-3xl border border-slate-800 flex items-start gap-4">
+                 <div className="p-3 bg-indigo-500/10 rounded-xl text-indigo-400">
+                   <Download size={24} />
                  </div>
                  <div>
-                   <h4 className="text-sm font-bold text-white mb-1">Vector Ready</h4>
+                   <h4 className="text-sm font-bold text-white mb-1 uppercase tracking-wider">Vector Ready</h4>
                    <p className="text-xs text-slate-500 leading-relaxed">
-                     Download in SVG format for infinite scalability without losing quality. Perfect for print.
+                     Downloads are optimized for high-resolution print and digital use.
                    </p>
                  </div>
                </div>
@@ -88,18 +85,10 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      <footer className="mt-20 border-t border-slate-800 py-12 bg-slate-950 text-center">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex items-center gap-2">
-              <QrCode className="text-indigo-500 w-5 h-5" />
-              <span className="font-outfit font-bold text-slate-100 tracking-wider">X9M8 STUDIO</span>
-            </div>
-            <p className="text-xs text-slate-500">
-              &copy; {new Date().getFullYear()} X9M8. No tracking. No data collection. 100% Client-side.
-            </p>
-          </div>
-        </div>
+      <footer className="mt-20 py-12 text-center">
+        <p className="text-xs text-slate-600 font-medium uppercase tracking-[0.2em]">
+          &copy; {new Date().getFullYear()} X9M8 QR STUDIO • 100% Client-Side
+        </p>
       </footer>
     </div>
   );
